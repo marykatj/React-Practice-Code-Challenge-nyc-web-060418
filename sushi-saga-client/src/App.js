@@ -11,14 +11,15 @@ class App extends Component {
     allSushis: [],
     selectedSushi: {},
     allSelectedFish: [],
-    fourSushi: [],
-    moneyLeft: 100
+    fourSushi: [1, 4],
+    moneyLeft: 100,
+    currentFourSushi: []
   }
 
   componentDidMount() {
     fetch(API).then(response => response.json()).then(data => this.setState ({
       allSushis: data
-    }))
+    }));
   }
 
   selectedSushi = (chosenSushi) => {
@@ -32,12 +33,30 @@ class App extends Component {
     })
   }
 
+selectFour = () => {
+  const x = this.state.fourSushi[0]
+  const y = this.state.fourSushi[1]
+  this.setState({
+    fourSushi: [x+4, y+4]
+  });
+  this.sushiDivvy();
+}
+
+sushiDivvy = () => {
+  const sushiRolls = this.state.allSushis.filter(oneSushi => oneSushi.id >= this.state.fourSushi[0] && oneSushi.id <= this.state.fourSushi[1])
+  this.setState({
+    currentFourSushi: sushiRolls
+  })
+}
+
+
+
 
   render() {
-    console.log(this.state.allSelectedFish)
+    console.log(this.state.currentFourSushi)
     return (
       <div className="app">
-        <SushiContainer money={this.state.moneyLeft} sushis={this.state.allSushis} selectedSushi={this.selectedSushi} allSelectedFish={this.state.allSelectedFish}/>
+        <SushiContainer money={this.state.moneyLeft} sushis={this.state.currentFourSushi} selectedSushi={this.selectedSushi} allSelectedFish={this.state.allSelectedFish} selectFour={this.selectFour}/>
         <Table sushi={this.state.selectedSushi} money={this.state.moneyLeft} fishArray={this.state.allSelectedFish}/>
       </div>
     );

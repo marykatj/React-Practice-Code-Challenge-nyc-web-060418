@@ -18,7 +18,7 @@ const sushiMapper = () => {
     <Fragment>
       <div className="belt">
         {sushiMapper()}
-        <MoreButton />
+        <MoreButton selectFour={props.selectFour}/>
       </div>
     </Fragment>
   )
