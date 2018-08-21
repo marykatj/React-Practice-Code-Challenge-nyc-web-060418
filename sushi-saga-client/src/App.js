@@ -11,6 +11,7 @@ class App extends Component {
     allSushis: [],
     selectedSushi: {},
     allSelectedFish: [],
+    fourSushi: [],
     moneyLeft: 100
   }
 

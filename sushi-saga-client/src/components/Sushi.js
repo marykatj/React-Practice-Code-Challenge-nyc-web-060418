@@ -1,33 +1,36 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, Component } from 'react'
 
-const Sushi = (props) => {
+class Sushi extends Component {
 
-  const { sushi } = props;
+state = {
+  eaten: false
+}
 
-const clickSushi = () => {
-  if (sushi.price <= props.money) {
-    //console.log(sushi)
-    props.chosenSushi(sushi)
-    //removeSushi()
+
+clickSushi = () => {
+  if (this.props.sushi.price <= this.props.money) {
+    this.props.chosenSushi(this.props.sushi)
+    this.setState({
+      eaten: true
+    })
   }
   else return null
 }
 
-// props.fourFishArray.includes(fish => fish.id === sushi.id)
-//also could make clicked a state of false, and switch to true
 
-
-  return (
+  render() {
+    return (
     <div className="sushi">
       <div className="plate"
-           onClick={clickSushi}>
-        { false ? null : <img src={sushi.img_url} width="100%" alt=""/>}
+           onClick={this.clickSushi}>
+        { this.state.eaten === true ? null : <img src={this.props.sushi.img_url} width="100%" alt=""/>}
       </div>
       <h4 className="sushi-details">
-        {sushi.name} - ${sushi.price}
+        {this.props.sushi.name} - ${this.props.sushi.price}
       </h4>
     </div>
   )
+}
 }
 
 export default Sushi
